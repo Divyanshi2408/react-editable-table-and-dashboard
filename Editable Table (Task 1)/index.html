@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Editable Table React</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+      background-color: #f5f7fa;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    th, td {
+      padding: 12px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    input[type="text"]:focus {
+      border-color: #4CAF50;
+      outline: none;
+    }
+    button {
+      display: block;
+      margin: 20px auto;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    function EditableTable() {
+      const initialData = [
+        "Onboarding Call",
+        "Google Search Console Access",
+        "Google Analytics Access",
+        "Website Access",
+        "Technical Audit",
+        "Anchor Text and Semantic Analysis",
+        "Competitor Analysis",
+        "Anchor Text / URL Mapping",
+        "Google Data Studio Report - Local Reporting Suite",
+        "Site Level Optimization",
+        "On Page Optimization",
+        "Content Creation",
+        "Content Publishing",
+        "Premium Press Release",
+        "Authority Niche Placements",
+        "Review Management",
+        "Index Links",
+        "Video Recap"
+      ];
+
+      const [data, setData] = useState(
+        initialData.map(task => ({
+          task,
+          column2: '',
+          column3: ''
+        }))
+      );
+
+      const handleChange = (e, index, field) => {
+        const newData = [...data];
+        newData[index][field] = e.target.value;
+        setData(newData);
+      };
+
+      const handleSubmit = () => {
+        console.log("Data ready to POST:", data);
+      };
+
+      return (
+        <div>
+          <h2>React js frontend task</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Task</th>
+                <th>Column 2</th>
+                <th>Column 3</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.map((row, index) => (
+                <tr key={index}>
+                  <td>{row.task}</td>
+                  <td>
+                    <input
+                      type="text"
+                      value={row.column2}
+                      onChange={(e) => handleChange(e, index, 'column2')}
+                      placeholder="Enter value"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      value={row.column3}
+                      onChange={(e) => handleChange(e, index, 'column3')}
+                      placeholder="Enter value"
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <button onClick={handleSubmit}>Submit</button>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<EditableTable />);
+  </script>
+</body>
+</html>
